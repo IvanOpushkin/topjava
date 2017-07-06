@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
  * GKislin
  * 11.01.2015.
  */
-public class UserMealWithExceed {
+public class UserMealWithExceed
+//OMG DATS SO AWESOME
+{
     private final LocalDateTime dateTime;
 
     private final String description;
