@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * GKislin
@@ -29,7 +30,10 @@ public class UserMealsUtil {
     }
 
     public static List<UserMealWithExceed>  getFilteredWithExceeded(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
-        System.out.println("TODO return filtered list with correctly exceeded field");
+
+       // System.out.println("TODO return filtered list with correctly exceeded field");
+        Stream<UserMeal> meals = mealList.stream();
+
         return null;
     }
 }
