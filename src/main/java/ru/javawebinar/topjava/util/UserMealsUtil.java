@@ -57,6 +57,8 @@ public class UserMealsUtil {
                 .map(p -> new UserMealWithExceed(p.getDateTime(), p.getDescription(), p.getCalories(), calloriesDay.get(p.getDateTime().toLocalDate()) > caloriesPerDay))
                 .collect(Collectors.toList());
 
+        //Он сам закрылся нет.
+
        // for (UserMealWithExceed oneMeal : finalList) {
          //   System.out.println(oneMeal.toString());
       //  }
