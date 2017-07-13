@@ -24,48 +24,91 @@ public class UserMealsUtil {
                 new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,13,0), "Обед", 500),
                 new UserMeal(LocalDateTime.of(2015, Month.MAY, 31,20,0), "Ужин", 510)
         );
-        getFilteredWithExceeded(mealList, LocalTime.of(7, 0), LocalTime.of(12,0), 2000);
-//        .toLocalDate();
-//        .toLocalTime();
+        getFilteredWithExceeded(mealList, LocalTime.of(7, 0), LocalTime.of(12,0), 2000)
+                .forEach(System.out::println);
     }
 
     public static List<UserMealWithExceed>  getFilteredWithExceeded(List<UserMeal> mealList, LocalTime startTime, LocalTime endTime, int caloriesPerDay) {
 
-        Map<LocalDate, Integer> calloriesDay = new HashMap<>();
 
-        for (UserMeal userMeal : mealList) {
-            LocalDate mealsDate = userMeal.getDateTime().toLocalDate(); //Простое разделение дней и часов
+        Map<LocalDate, Integer> calloriesPerDate = mealList.stream()
+                .collect(Collectors.groupingBy(meal -> meal.getDateTime().toLocalDate()
+                        , Collectors.summingInt(UserMeal::getCalories)));
 
-           //Материал из будущего
-            //calloriesDay.merge(mealsDate, userMeal.getCalories(),);
+        mealList.stream().close();
+
+        return mealList.stream()
+                .filter(userMeal -> TimeUtil.isBetween(userMeal.getDateTime().toLocalTime(), startTime, endTime))
+                .map(userMeal -> new UserMealWithExceed(userMeal.getDateTime(),userMeal.getDescription(), userMeal.getCalories(),
+                        calloriesPerDate.get(userMeal.getDateTime().toLocalDate()) > caloriesPerDay))
+                .collect(Collectors.toList());
+    }
+}
 
 
 
+//Нормальный идеальный шаблон класс работы с большими коллекциями. Нормальный.
+
+//п.326
+//Существуют два вида операций
+// 1.Intermediate промежуточные(filter(),map() - transforms one - to one map,
+// sorted() - сортирует по условию)
+// 2.и Terminal (collect() - Dumps (аналогия дампа базы данных, т.к на ней работают типо также collection to the variable map/list,
+// findFirst() - first element p match in the stream, allMatch() - matches p or not) операции заканчивающие стрим
+//Закрывают ли стрим тоже, задал вопрос.
+
+
+//п.327
+//Метод Дампа
+// 1.Dump - разгрузка (разгрузки базы данных, разгрузки базы данных потока)
+//  2.Collectors выполняет разные функции например stream().collect(Collectors.groupingBy(value of stream,
+// и вторая внутри первой Collectors.summingInt(UserMeal::getCalories)) суммирующая значения под первое значение коллектора
+//вернёт мапу двух значений, без второго коллектора суммирующего вернуло бы ключик первый, и значения относительно этого ключа сложного класса.
+//3. p - может быть любым чем угодно текстово. а так это Predicate - утверждение (English)
+//4.Ctrl + Alt + V формирование значения под стрим коллект - терминальной операции.
+
+//п.328
+//Рефференс укорачивание, украшение кода, более понятно т.к с другого ракурса взгляд.
+// 1.Так p->p.getCalories() это тоже самое, что  UserMeal::getCalories (без методного знака) при одном элементе в обработке! Не глубоком тоесть.
+//2.пример вывода из forEach терминальной операции с лямбдами вместо .forEach(userMealWithExceeded-> System.out.println(userMealWithExceeded));
+//просто стандарт на не глубокий с лямбдой .forEach(System.out::println);
+
+
+
+
+
+
+  /*
+        for (Map.Entry entry  : calloriesPerDate.entrySet()) {
+
+
+            System.out.println(entry.getKey() + " " + entry.getValue());
+
+
+
+            LocalDate mealsDate = userMeal.getDateTime().toLocalDate();
             //Линейный перебор O(N)
-            if (calloriesDay.get(mealsDate) == null) {
-                calloriesDay.put(mealsDate, userMeal.getCalories());
+            if (caloriesDay.get(mealsDate) == null) {
+                caloriesDay.put(mealsDate, userMeal.getCalories());
             } else {
-                calloriesDay.put(mealsDate, calloriesDay.get(mealsDate) + userMeal.getCalories());
+                caloriesDay.put(mealsDate, caloriesDay.get(mealsDate) + userMeal.getCalories());
             }
 
-        }
 
-        //Линейная фильтрация по одному перебор фильр, мэп создание по 1 экземпляру, коллект наверное тоже.
+        }
+         */
+
+        /*Линейная фильтрация по одному перебор фильр, мэп создание по 1 экземпляру, коллект наверное тоже.
         List<UserMealWithExceed> finalList = mealList.stream()
                 //.filter(p -> p.getDateTime().toLocalTime().toNanoOfDay() > startTime.toNanoOfDay() && p.getDateTime().toLocalTime().toNanoOfDay() < endTime.toNanoOfDay())
                 .filter(p -> TimeUtil.isBetween(p.getDateTime().toLocalTime(),startTime,endTime))
-                .map(p -> new UserMealWithExceed(p.getDateTime(), p.getDescription(), p.getCalories(), calloriesDay.get(p.getDateTime().toLocalDate()) > caloriesPerDay))
+                .map(p -> new UserMealWithExceed(p.getDateTime(), p.getDescription(), p.getCalories(), caloriesDay.get(p.getDateTime().toLocalDate()) > caloriesPerDay))
                 .collect(Collectors.toList());
+        */
+//Он сам закрылся нет.
 
-        //Он сам закрылся нет.
 
-       // for (UserMealWithExceed oneMeal : finalList) {
-         //   System.out.println(oneMeal.toString());
-      //  }
 
-    return finalList;
-    }
-}
 
 //&& (calloriesDay.get(p.getDateTime().toLocalDate())) < caloriesPerDay);
 
