@@ -1,8 +1,9 @@
 .idea
 out
 target
+*.pdf
 *.iml
 log
-
-
+*.patch
+*.crdownload
 
