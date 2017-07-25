@@ -24,6 +24,15 @@ public class MealServlet extends HttpServlet {
         //        request.getRequestDispatcher("/users.jsp").forward(request, response);
         //mb meals
 
+       //заполнить лист еды. если его нет хм. Вроде просто грамотно взять из милутиля
+
+
+
+        //request.setAttribute("MLWElist",);
+
+
+
+                //sendForward
         response.sendRedirect("meals.jsp"); //meals
 
     }
