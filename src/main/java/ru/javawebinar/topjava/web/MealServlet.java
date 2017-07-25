@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static org.slf4j.LoggerFactory.getLogger;
+import static ru.javawebinar.topjava.util.MealsUtil.mewiex;
 
 /**
  * Created by Mega on 24.07.2017.
@@ -21,19 +22,23 @@ public class MealServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         log.debug("redirect to meals"); //mb meals
-        //        request.getRequestDispatcher("/users.jsp").forward(request, response);
+
+        request.setAttribute("mewiexList", mewiex);
+
+
+               request.getRequestDispatcher("/meals.jsp").forward(request, response);
         //mb meals
 
        //заполнить лист еды. если его нет хм. Вроде просто грамотно взять из милутиля
 
 
 
-        //request.setAttribute("MLWElist",);
+
 
 
 
                 //sendForward
-        response.sendRedirect("meals.jsp"); //meals
+       // response.forward("meals.jsp"); //meals
 
     }
 }
