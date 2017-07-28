@@ -1,0 +1,30 @@
+DROP DATABASE IF EXISTS DIET;
+
+CREATE DATABASE DIET;
+
+USE DIET;
+
+#Пока неясная строчка, test возможно пароль. админ типо имени.
+grant all on DIET.* to 'admin'@'localhost' identified by 'test';
+#ID пока ещё не существует
+CREATE TABLE `Meals`(
+
+  `ID` INT(8) NOT NULL AUTO_INCREMENT DEFAULT '0',
+  `LocalDateTime` DATE NOT NULL DEFAULT NOW(),
+  `Description` VARCHAR(1000) NOT NULL DEFAULT 'no idea which meal is it',
+  `Calories` INT(8) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`))
+
+  #Вся ли это строка запускающая автоинкремент, нужен ли двойной автоинкремент или только
+  #в классе основе
+  ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8
+
+  COLLATE = "UTF_8_GENERAL_CI";
+
+
+
+
+
+
+
+

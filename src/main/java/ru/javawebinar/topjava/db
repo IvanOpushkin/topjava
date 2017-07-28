@@ -1,0 +1,7 @@
+driver=com.mysql.jdbc.Driver
+url=jdbc:mysql://localhost:3306/diet
+#may be MealDB hz nazvanie
+#было админ
+user=root
+#было тест
+password=

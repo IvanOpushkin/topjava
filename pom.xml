@@ -74,6 +74,8 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
+          <!--  <scope>provided</scope> говорят решает чтото с нуль поинтером
+          выключает базу ручного ввода в java почемуто-->
         </dependency>
 
         <dependency>

@@ -4,15 +4,32 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class MealWithExceed {
-    private final LocalDateTime dateTime;
 
-    private final String description;
+    //Все переменные были файнал и не поддавались сэттингу, что думаю критично для тогоже
+    //Спринга и Хибернэйта
 
-    private final int calories;
 
-    private final boolean exceed;
+    private int id;
 
-    public MealWithExceed(LocalDateTime dateTime, String description, int calories, boolean exceed) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private LocalDateTime dateTime;
+
+    private String description;
+
+    private int calories;
+
+    private boolean exceed;
+
+    public MealWithExceed(int id, LocalDateTime dateTime, String description, int calories, boolean exceed) {
+
+        this.id = id;
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
@@ -35,6 +52,21 @@ public class MealWithExceed {
         return exceed;
     }
 
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCalories(int calories) {
+        this.calories = calories;
+    }
+
+    public void setExceed(boolean exceed) {
+        this.exceed = exceed;
+    }
 
     //mb добавить потом
     public static String formatLocalDateTime(LocalDateTime localDateTime) {

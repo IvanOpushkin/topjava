@@ -1,0 +1,33 @@
+#DROP DATABASE IF EXISTS DIET;
+#CREATE DATABASE DIET;
+#запускаем второй после первого
+
+USE DIET;
+
+#Пока неясная строчка, test возможно пароль. админ типо имени.
+grant all on DIET.* to 'admin'@'localhost' identified by 'test';
+
+#ID пока ещё не существует
+CREATE TABLE `MealsWithExceed`(
+
+  #Пропись автоинкремента и айди добавить после стандартной таблицы
+  `ID` INT(8) NOT NULL AUTO_INCREMENT DEFAULT '0',
+  `LocalDateTime` DATETIME NOT NULL DEFAULT NOW(),
+  `Description` VARCHAR(1000) NOT NULL DEFAULT 'no idea which meal is it',
+  `Calories` INT(8) NOT NULL DEFAULT '0',
+  `Exceed` BIT(1) NOT NULL DEFAULT b'0',
+    PRIMARY KEY(`ID`))
+
+  #Вся ли это строка запускающая автоинкремент, нужен ли двойной автоинкремент или только
+  #в классе основе
+   ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8
+
+  COLLATE = "UTF_8_GENERAL_CI";
+
+
+
+
+
+
+
+
