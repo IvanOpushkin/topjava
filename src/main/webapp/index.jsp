@@ -13,5 +13,8 @@
 <ul>
     <li><a href="meals">Meals</a></li>
 </ul>
+<ul>
+    <li><a href="meal.jsp">Meal</a></li>
+</ul>
 </body>
 </html>

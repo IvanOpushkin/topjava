@@ -21,7 +21,9 @@ public class MealDaoImpl implements MealDao {
 
         //Ну устанавилвается соединение возможно
     public MealDaoImpl() {
+
         this.connection = DbUtil.getConnection();
+
     }
 
 

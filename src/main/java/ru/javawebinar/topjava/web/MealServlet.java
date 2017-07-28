@@ -69,18 +69,11 @@ public class MealServlet extends HttpServlet {
     {
         log.debug("redirect to meals");
 
-
-        //в зависимости от условия выдасть нужный requestmapping
         String forward = "";
-
-        //команда на которую будет опираца запрос
-
-
         //ТОЧКА ПОДКЛЮЧЕНИЯ ACTION пока Хз как. Точка Подключение всего КРУДА.
 
-        String action = "";  //пока экшена нет заменим на пустоту
-
-               // request.getParameter("action"); НК настоящий код
+        String action = "";   //пока экшена нет заменим на пустоту
+        //request.getParameter("action"); реал код
 
 
         if (action.equalsIgnoreCase("delete"))
