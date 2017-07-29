@@ -36,7 +36,7 @@ public class MealServlet extends HttpServlet {
     //mb make it private + getter
 
 
-    private static MealDaoImpl mealDaoImpl;
+    private static MealDaoImpl mealDaoImpl = new MealDaoImpl();
     //Ложит всё созданиие Дао.
     private static String INSERT_OR_EDIT = "/meal.jsp";
     private static String LIST_MEAL = "/meals.jsp";
