@@ -38,7 +38,7 @@ public class DbUtil {
                 String password = prop.getProperty("password");
 
                 //Java Reflection API (пока тока имя)
-                Class c = Class.forName(driver);
+                Class.forName(driver);
 
                 //DriverManager для работы с базами данных
                 //getConnection получение прямого соединения с базой

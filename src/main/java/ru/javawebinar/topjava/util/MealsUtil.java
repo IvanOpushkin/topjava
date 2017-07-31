@@ -39,20 +39,20 @@ public class MealsUtil {
 
             return mealList.stream()
                     .filter(Meal -> TimeUtil.isBetween(Meal.getDateTime().toLocalTime(), startTime, endTime))
-                    .map(Meal-> new MealWithExceed(Meal.getMealId(), Meal.getDateTime(), Meal.getDescription(), Meal.getCalories(),
+                    .map(Meal-> new MealWithExceed(Meal.getId(), Meal.getDateTime(), Meal.getDescription(), Meal.getCalories(),
                             filteredWithExceededHelper.get(Meal.getDateTime().toLocalDate()) > caloriesPerDay))
                     .collect(Collectors.toList());
 
     }
 
 
-    public static List<MealWithExceed> getSmallFilter(List<Meal> mealList, int caloriesPerDay)
+    public static List<MealWithExceed> getSmallFilter(Collection<Meal> mealList, int caloriesPerDay)
     {
         Map<LocalDate, Integer> timeCalories = mealList.stream()
                 .collect(Collectors.groupingBy(Meal -> Meal.getDateTime().toLocalDate(), Collectors.summingInt(Meal::getCalories)));
 
         return mealList.stream()
-                .map(Meal -> new MealWithExceed(Meal.getMealId(),Meal.getDateTime(), Meal.getDescription(), Meal.getCalories(),
+                .map(Meal -> new MealWithExceed(Meal.getId(),Meal.getDateTime(), Meal.getDescription(), Meal.getCalories(),
                         timeCalories.get(Meal.getDateTime().toLocalDate()) > caloriesPerDay))
                 .collect(Collectors.toList());
     }

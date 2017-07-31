@@ -1,18 +1,12 @@
 package ru.javawebinar.topjava.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Meal {
 
-    private int mealId;
-
-    public int getMealId() {
-        return mealId;
-    }
-
-    public void setMealId(int mealId) {
-        this.mealId = mealId;
-    }
+    //Почему не примитивный тип
+    private Integer id;
 
     private LocalDateTime dateTime;
 
@@ -24,9 +18,22 @@ public class Meal {
     {}
 
 
-    public Meal(int mealId, LocalDateTime dateTime, String description, int calories) {
+   public Meal(String description)
+   {
+       this.description = description;
+   }
 
-        this.mealId = mealId;
+    public Meal(LocalDateTime dateTime, String description, int calories)
+    {
+        this.dateTime = dateTime;
+        this.description = description;
+        this.calories = calories;
+    }
+
+
+    public Meal(Integer mealId, LocalDateTime dateTime, String description, int calories) {
+
+        this.id = mealId;
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
@@ -55,5 +62,32 @@ public class Meal {
 
     public int getCalories() {
         return calories;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isNew()
+    {
+        return id == null;
+    }
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", description='" + description + '\'' +
+                ", calories=" + calories +
+                '}';
+    }
+
+    public static String formatLocalDateTime(LocalDateTime localDateTime) {
+        return localDateTime.format(DateTimeFormatter.ofPattern("yyyy--MM--dd hh:mm"));
     }
 }

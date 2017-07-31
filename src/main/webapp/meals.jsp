@@ -21,22 +21,14 @@
 </head>
 <body>
 
+<p><a href="meals?action=create">Add Meal</a></p>
 
-<%-- Выдаёт null почемуто насчёт - а потомучто в web.xml не был подключен сервлет Java
-<%= request.getAttribute("mewiexList")  %>
-волшебных знаков процента работы с кодом
-<%=
-request.getAttribute("mewiexList")
-%>
 
-  ${!empty requestScope.mewiexList}
 
-  парам для одного элемента, requestScope для листа
---%>
 
 
 <h3><a href="index.jsp">Home</a></h3>
-<h2>Meals</h2>
+<h2>Meal List</h2>
 
 <table>
 
@@ -45,25 +37,20 @@ request.getAttribute("mewiexList")
     <td width =200px>DateTime</td>
     <td width =200px style="text-align:center">Description</td>
     <td width =200px>Calories</td>
-    <td width =200px>Exceed</td>
     <th colspan=2>Action</th>
 </tr>
 
 
-<c:if test = "${!empty requestScope.mewiexList}" var = "MealWithExceed">
+<c:if test = "${!empty mealList}" var = "MealWithExceed">
+    <c:forEach items = "${mealList}" var = "MealWithExceed">
 
 
 
-    <c:forEach items = "${requestScope.mewiexList}" var = "MealWithExceed">
-        <%--важное дополнение Items а не тэст
-        2.var тип элемента а не пустота
-        --%>
+        <c:if test = "${MealWithExceed.exceed}">
 
-     <c:if test = "${MealWithExceed.exceed}">
+            <tr style = "color:red;">
 
-         <tr style = "color:red;">
-
-     </c:if>
+        </c:if>
 
         <c:if test = "${!MealWithExceed.exceed}">
 
@@ -71,19 +58,16 @@ request.getAttribute("mewiexList")
 
         </c:if>
 
-
-
-        <%--'T'hh:mm
-        <javatime:parseLocalDateTime value="${MealWithExceed.dateTime}" pattern="yyyy-MM-dd'T'hh:mm" var="parsedDate" />
-        --%>
-
         <td width =200px>${MealWithExceed.id}</td>
+        <!-- хз нужна ли тут синхронизация форматтера. По идее тысячи страниц если mb. По предохранению даты
+        почему теряюца атрибуты п
+        -->
         <td width =200px>${MealWithExceed.formatLocalDateTime(MealWithExceed.dateTime)}</td>
         <td width =200px style="text-align:center">${MealWithExceed.description}</td>
         <td width =200px>${MealWithExceed.calories}</td>
-        <td width =200px>${MealWithExceed.exceed}</td>
-        <td><a href="meals?action=edit&userId=<c:out value="${MealWithExceed.id}"/>">Update</a></td>
-        <td><a href="meals?action=delete&userId=<c:out value="${MealWithExceed.id}"/>">Delete</a></td>
+      <!-- си оут не только видимое, но и передаётся-->
+        <td><a href="meals?action=edit&id=<c:out value="${MealWithExceed.id}"/>">Update</a></td>
+        <td><a href="meals?action=delete&id=<c:out value="${MealWithExceed.id}"/>">Delete</a></td>
 
 
 
@@ -97,53 +81,32 @@ request.getAttribute("mewiexList")
 
 </table>
 
-<p><a href="meals?action=insert">Add User</a></p>
-
 </body>
 </html>
-    <%--
-<c:if test = "${!empty requestScope.mewiexList}" var = "MealWithExceed">
 
 
 
-    <c:forEach items = "${requestScope.mewiexList}" var = "MealWithExceed">
-        <%--важное дополнение Items а не тэст
-        2.var тип элемента а не пустота
+<%--
+  процентный закрывает всё. а не процентный только графический
 
 
-     <c:if test = "${MealWithExceed.exceed}">
+  --%>
 
-         <tr style = "color:red;">
-
-     </c:if>
-
-        <c:if test = "${!MealWithExceed.exceed}">
-
-            <tr style = "color:green;">
-
-        </c:if>
+<%--'T'hh:mm
+<javatime:parseLocalDateTime value="${MealWithExceed.dateTime}" pattern="yyyy-MM-dd'T'hh:mm" var="parsedDate" />
+--%>
 
 
 
-        <%--'T'hh:mm
-        <javatime:parseLocalDateTime value="${MealWithExceed.dateTime}" pattern="yyyy-MM-dd'T'hh:mm" var="parsedDate" />
+<!--
+<%-- Выдаёт null почемуто насчёт - а потомучто в web.xml не был подключен сервлет Java
+<%= request.getAttribute("mewiexList")  %>
+волшебных знаков процента работы с кодом
+<%=
+request.getAttribute("mewiexList")
+%>
 
+  ${!empty requestScope.mewiexList}
 
-        <td width =200px>${MealWithExceed.id}</td>
-        <td width =200px>${MealWithExceed.formatLocalDateTime(MealWithExceed.dateTime)}</td>
-        <td width =200px style="text-align:center">${MealWithExceed.description}</td>
-        <td width =200px>${MealWithExceed.calories}</td>
-        <td width =200px>${MealWithExceed.exceed}</td>
-
-
-
-    </tr>
-
-    </c:forEach>
-
-
-</c:if>
-    --%>
-
-
-
+  парам для одного элемента, requestScope для листа
+--%>

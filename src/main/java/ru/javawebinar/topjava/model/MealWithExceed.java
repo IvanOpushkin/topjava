@@ -5,13 +5,15 @@ import java.time.format.DateTimeFormatter;
 
 public class MealWithExceed {
 
+
+
     //Все переменные были файнал и не поддавались сэттингу, что думаю критично для тогоже
     //Спринга и Хибернэйта
 
 
-    private int id;
+    private Integer id;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -68,7 +70,7 @@ public class MealWithExceed {
         this.exceed = exceed;
     }
 
-    //mb добавить потом
+    //mb добавить потом изменить на потоко безопасную хз
     public static String formatLocalDateTime(LocalDateTime localDateTime) {
         return localDateTime.format(DateTimeFormatter.ofPattern("yyyy--MM--dd hh:mm"));
     }
